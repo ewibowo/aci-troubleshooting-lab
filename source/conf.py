@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'ACI Troubleshooting'
+project = u'ACI Troubleshooting Lab'
 copyright = u'2018, Edi Wibowo'
 author = u'Edi Wibowo'
 
