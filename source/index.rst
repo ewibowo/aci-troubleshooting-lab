@@ -1,5 +1,5 @@
-ACI Troubleshooting
-==============================
+ACI Troubleshooting Lab
+=======================
 
 Welcome to ACI Troubleshoot Lab documentation
 
