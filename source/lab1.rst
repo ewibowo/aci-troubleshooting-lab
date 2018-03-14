@@ -1,6 +1,18 @@
 Fabric Discovery
 ================
 
+.. image:: apic1.png
+   :width: 500px
+   :alt: APIC leaf connectivity
+
++---------------+-----------------+----------+----------+
+|               | APIC 1          | APIC 2   | APIC 3   |
++===============+=================+==========+==========+
+| IP address    | 10.66.88.181/27 | column 3 | column 4 |
++---------------+-----------------+----------+----------+
+| Gateway       | 10.66.88.161    | ...      |          |
++---------------+-----------------+----------+----------+
+
 Check which active interface is connected to the leaf::
 
   apic1# cat /proc/net/bonding/bond0
@@ -48,10 +60,10 @@ SSH as user admin to CIMC of the APIC ::
   CIMC /chassis # scope adapter 1
   CIMC /chassis/adapter # show detail | grep LLDP
   LLDP: Enabled
-  C220-FCHxxxxxxxx /chassis/adapter # set lldp disabled
-  C220-FCHxxxxxxxx /chassis/adapter *# commit
+  CIMC /chassis/adapter # set lldp disabled
+  CIMC /chassis/adapter *# commit
   New VNIC adapter settings will take effect upon the next server reset
-  CIMC# scope /chassis
+  CIMC /chassis/adapter # exit
   CIMC /chassis # power cycle
 
 Source: https://supportforums.cisco.com/legacyfs/online/attachments/document/files/apic-vic-lldp-fn.pdf
