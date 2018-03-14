@@ -1,9 +1,22 @@
 Fabric Discovery
 ================
 
+Physical Topology
+-----------------
+.. image:: physical-topo.png
+   :width: 500px
+   :alt: Physical 
+
+APIC1 Connectivity
+------------------
+
 .. image:: apic1.png
    :width: 500px
-   :alt: APIC leaf connectivity
+   :alt: APIC1-leaf connectivity
+
+To erase configuration so that we can re-setup APIC::
+  acidiag touch setup
+  acidiag reboot
 
 +---------------+-----------------+----------+----------+
 |               | APIC 1          | APIC 2   | APIC 3   |
@@ -42,10 +55,15 @@ Check which active interface is connected to the leaf::
   Permanent HW addr: 58:f3:9c:24:32:fe
   Slave queue ID: 0
 
-Check the lldp neighbours::
+Check the lldp neighbours on APIC1::
 
-  apic# acidiag run lldptool in eth2-1
+  apic1# acidiag run lldptool in eth2-2
+  Port Description TLV
+          topology/pod-1/paths-101/pathep-[eth1/45]
+  Cisco Infra VLAN TLV
+          4094
 
+Check the lldp neighbours on connected Leaf::
   switch# show lldp neighbor
  
 If the lldp neigbor empty or showing mac address, that means the LLDP is enabled on the VIC card of APIC. As a result, the VIC consumes the LLDP and the APIC cannot respond. To disable LLDP on VIC:
