@@ -1,3 +1,5 @@
+.. sectnum::
+
 ACI Troubleshooting Lab
 =======================
 
@@ -19,6 +21,7 @@ Table of Contents
    :maxdepth: 2
 
    fabric-discovery
+   access-policy
    lab2
    contract
    l3out

@@ -1,5 +1,3 @@
-.. sectnum::
-
 Fabric Discovery
 ===================
 
