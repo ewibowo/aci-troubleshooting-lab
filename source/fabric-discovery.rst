@@ -224,7 +224,16 @@ Check the lldp neighbours on connected Leaf:
 
 .. code-block:: console
 
-  switch# show lldp neighbor
+  leaf101# show lldp neighbors 
+  Capability codes:
+    (R) Router, (B) Bridge, (T) Telephone, (C) DOCSIS Cable Device
+    (W) WLAN Access Point, (P) Repeater, (S) Station, (O) Other
+  Device ID            Local Intf      Hold-time  Capability  Port ID  
+  apic1                 Eth1/45         120                    eth2-1 <<< apic1 is a LLDP neighbor         
+  spine201              Eth1/53         120        BR          Eth1/29         
+  spine202              Eth1/54         120        BR          Eth1/29         
+  Total entries displayed: 3
+
 
 Ensure that the infra VLANs on APIC and Leaf match.
 If they do not match, please run the following to reset switch to manufacture config (bug CSCvd67346).
@@ -279,10 +288,28 @@ Ensure that the VTEP is assigned to the leaf switch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When leaf is registered, it will request TEP address via DHCP.
-
 .. image:: dhcp-vtep.png
    :width: 300px
    :alt: APIC Cluster connectivity
+
+.. code-block:: console
+
+  leaf101# show ip interface brief vrf overlay-1
+  IP Interface Status for VRF "overlay-1"(4)
+  Interface            Address              Interface Status
+  eth1/49              unassigned           protocol-down/link-down/admin-up
+  eth1/50              unassigned           protocol-down/link-down/admin-up
+  eth1/51              unassigned           protocol-down/link-down/admin-up
+  eth1/52              unassigned           protocol-down/link-down/admin-up
+  eth1/53              unassigned           protocol-up/link-up/admin-up
+  eth1/53.2            unnumbered           protocol-up/link-up/admin-up
+                       (lo0)               
+  eth1/54              unassigned           protocol-up/link-up/admin-up
+  eth1/54.3            unnumbered           protocol-up/link-up/admin-up
+                       (lo0)               
+  vlan1                10.0.0.30/27         protocol-up/link-up/admin-up
+  lo0                  10.0.32.95/32        protocol-up/link-up/admin-up <<< VTEP
+  lo1023               10.0.0.32/32         protocol-up/link-up/admin-up
 
 Reference
 ---------
