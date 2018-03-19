@@ -18,7 +18,7 @@ Table of Contents
 .. toctree::
    :maxdepth: 2
 
-   lab1
+   fabric-discovery
    lab2
    contract
    l3out

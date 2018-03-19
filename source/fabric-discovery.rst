@@ -3,6 +3,8 @@
 Fabric Discovery
 ===================
 
+The ACI fabric is brought up in a cascading manner, starting with the leaf nodes that are directly attached to the APIC. LLDP and control-plane IS-IS convergence occurs in parallel to this boot process. The ACI fabric uses LLDP- and DHCP-based fabric discovery to automatically discover the fabric switch nodes, assign the infrastructure VXLAN tunnel endpoint (VTEP) addresses.
+
 APIC Cluster Connectivity
 ----------------------------
 
@@ -20,11 +22,16 @@ To erase configuration of APIC so that we can re-setup APIC:
 
 Sometimes KVM cannot launch because of Java issues. 
 If you encounter such a problem, you can use Serial Over LAN as follows.
-SSH to CIMC of the APIC::
+
+SSH to CIMC of the APIC:
+
+.. code-block:: console
 
    ssh admin@<cimc IP addr>
 
-Enable the Serial Over LAN (SoL)::
+Enable the Serial Over LAN (SoL):
+
+.. code-block:: console
 
    cimc# 
    cimc# scope sol
@@ -46,6 +53,8 @@ Switch Config Erase
 ~~~~~~~~~~~~~~~~~~~
 To erase configuration of leaf/spine switch so that they can automatically retrieve configuration from APIC::
 
+.. code-block:: console
+
   switch# acidiag touch clean
   switch# reload
 
@@ -53,7 +62,9 @@ To erase configuration of leaf/spine switch so that they can automatically retri
 Fabric Initial Setup
 --------------------
 
-Once the APIC is rebooted, it will start in the initial config wizard::
+Once the APIC is rebooted, it will start in the initial config wizard:
+
+.. code-block:: console
 
   Starting Setup Utility                                                          
                                                                                   
@@ -131,7 +142,9 @@ Configuration Verification
 Ensure the bond interace is up
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Check which active interface is connected to the leaf::
+Check which active interface is connected to the leaf:
+
+.. code-block:: console
 
   apic1# cat /proc/net/bonding/bond0
   Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)
@@ -164,123 +177,61 @@ Check which active interface is connected to the leaf::
 Ensure the lldp information is correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ACI fabric is brought up in a cascading manner, starting with the leaf nodes that are directly attached to the APIC. LLDP and control-plane IS-IS convergence occurs in parallel to this boot process. The ACI fabric uses LLDP- and DHCP-based fabric discovery to automatically discover the fabric switch nodes, assign the infrastructure VXLAN tunnel endpoint (VTEP) addresses.
-
+Leaf switch discovers attached APIC via LLDP and requests TEP address via DHCP.
 
 .. image:: apic-leaf-lldp.png
    :width: 300px
    :alt: APIC Leaf lldp 
 
-Check the incoming lldp information that APIC receives from Leaf switch::
+Check the incoming lldp information that APIC receives from Leaf switch:
 
-  apic1# acidiag run lldptool in eth2-1
-  Chassis ID TLV
-    MAC: 00:fe:c8:e7:9e:57
-  Port ID TLV
-    Local: Eth1/45
-  Time to Live TLV
-    120
-  Port Description TLV
-    topology/pod-1/paths-101/pathep-[eth1/45] <<< Leaf port where APIC is connected
-  System Name TLV
-    leaf101
-  System Description TLV
+.. code-block:: console
+
+  apic1# acidiag run lldptool in eth2-1 | grep topo
+    topology/pod-1/paths-101/pathep-[eth1/45]
     topology/pod-1/node-101
-  System Capabilities TLV
-    System capabilities:  Bridge, Router
-    Enabled capabilities: Bridge, Router
-  Management Address TLV
-    MAC: 00:fe:c8:e7:9e:57
-    Ifindex: 83886080
-  Cisco 4-wire Power-via-MDI TLV
-    4-Pair PoE not supported
-    Spare pair Detection/Classification not required
-    PD Spare pair Desired State: Disabled
-    PSE Spare pair Operational State: Disabled
-  Cisco Port Mode TLV
-    0
-  Cisco Port State TLV
-    2
-  Cisco Serial Number TLV
-    FDO20231J7L
-  Cisco Model TLV
-    N9K-C9372PX-E
-  Cisco Firmware Version TLV
-    n9000-12.1(2e)
-  Cisco Node Role TLV
-    1
-  Cisco Infra VLAN TLV
-    4094 <<< Infra VLAN
-  Cisco Name TLV
-    leaf101 <<< Leaf where APIC is directly connected
-  Cisco Fabric Name TLV
-    ACI Training
-  Cisco Node IP TLV
-    IPv4:10.0.32.95
-  Cisco Node ID TLV
-    101
-  Cisco POD ID TLV
-    1
-  Cisco Appliance Vector TLV
-    Id: 1
-    IPv4: 10.0.0.1
-    UUID: 5e64ba8e-27e7-11e8-bf95-07e66f1cc971
-    Id: 2
-    IPv4: 10.0.0.2
-    UUID: 73f2ab94-27f7-11e8-8da1-6f4516bf0b0a
-    Id: 3
-    IPv4: 10.0.0.3
-    UUID: f9cc471a-27fd-11e8-8466-bb1170f52aff
-  End of LLDPDU TLV
- 
-Check the outgoing lldp information that APIC sends to Leaf switch::
 
-  apic1# acidiag run lldptool out eth2-1
-  Chassis ID TLV
-    MAC: d8:b1:90:61:30:74
-  Port ID TLV
-    MAC: d8:b1:90:61:30:74
-  Time to Live TLV
-    120
-  Port Description TLV
-    eth2-1
-  System Name TLV
-    apic1
-  System Description TLV
-    topology/pod-1/node-1
-  Management Address TLV
-    IPv4: 10.0.0.1
-    Ifindex: 4
-  Cisco Port State TLV
-    1
-  Cisco Node Role TLV
-    0
-  Cisco Node ID TLV
-    1
-  Cisco POD ID TLV
-    1
-  Cisco Fabric Name TLV
-    ACI Training
-  Cisco Appliance Vector TLV
-    Id: 1
-    IPv4: 10.0.0.1
-    UUID: 5fe36bba-2b2c-11e8-af3b-05b662d00dfc
-  Cisco Node IP TLV
-    IPv4:10.0.0.1
-  Cisco Port Role TLV
-    1
+  apic1# acidiag run lldptool in eth2-2 | grep topo                
+    topology/pod-1/paths-102/pathep-[eth1/45]
+    topology/pod-1/node-102  
+
+  apic1# acidiag run lldptool in eth2-1 | grep -A 1 -i vlan
   Cisco Infra VLAN TLV
     4094
-  Cisco Serial Number TLV
-    FCH1929V1N9
-  End of LLDPDU TLV
 
-Check the lldp neighbours on connected Leaf::
+  apic1# acidiag run lldptool in eth2-2 | grep -A 1 -i vlan
+  Cisco Infra VLAN TLV
+    4094
+
+Check the outgoing lldp information that APIC sends to Leaf switch:
+
+.. code-block:: console
+
+  apic1# acidiag run lldptool out eth2-1 | grep topo
+    topology/pod-1/node-1
+
+  apic1# acidiag run lldptool out eth2-2 | grep topo       
+    topology/pod-1/node-1
+
+  apic1# acidiag run lldptool out eth2-1 | grep -A 1 -i vlan
+  Cisco Infra VLAN TLV
+    4094
+
+  apic1# acidiag run lldptool out eth2-2 | grep -A 1 -i vlan
+  Cisco Infra VLAN TLV
+    4094
+
+Check the lldp neighbours on connected Leaf:
+
+.. code-block:: console
+
   switch# show lldp neighbor
 
 Ensure that the infra VLANs on APIC and Leaf match.
 If they do not match, please run the following to reset switch to manufacture config (bug CSCvd67346).
 Use prepare-mfg.sh on all switches in the environment and reload at the same time. For example::
+
+.. code-block:: console
      
   leaf101# dir bootflash/
   aci-n9000-dk9.12.1.2e.bin            
@@ -289,7 +240,9 @@ Use prepare-mfg.sh on all switches in the environment and reload at the same tim
  
 If the lldp neigbor empty or showing mac address, that means the LLDP is enabled on the VIC card of APIC. As a result, the VIC consumes the LLDP and the APIC cannot respond. To disable LLDP on VIC:
 
-SSH as user admin to CIMC of the APIC ::
+SSH as user admin to CIMC of the APIC:
+
+.. code-block:: console
 
   CIMC# scope chassis
   CIMC /chassis # show adapter
