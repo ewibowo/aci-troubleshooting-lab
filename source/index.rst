@@ -11,6 +11,8 @@ Table of Contents
 
    lab1
    lab2
+   contract
+   l3out
 
 Indices and tables
 ==================
