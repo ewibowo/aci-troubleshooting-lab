@@ -180,7 +180,7 @@ Ensure the lldp information is correct
 Leaf switch discovers attached APIC via LLDP and requests TEP address via DHCP.
 
 .. image:: apic-leaf-lldp.png
-   :width: 300px
+   :width: 500px
    :alt: APIC Leaf lldp 
 
 Check the incoming lldp information that APIC receives from Leaf switch:
@@ -229,7 +229,7 @@ Check the lldp neighbours on connected Leaf:
 
 Ensure that the infra VLANs on APIC and Leaf match.
 If they do not match, please run the following to reset switch to manufacture config (bug CSCvd67346).
-Use prepare-mfg.sh on all switches in the environment and reload at the same time. For example::
+Use prepare-mfg.sh on all switches in the environment and reload at the same time. For example:
 
 .. code-block:: console
      
@@ -238,9 +238,27 @@ Use prepare-mfg.sh on all switches in the environment and reload at the same tim
   
   leaf101# prepare-mfg.sh aci-n9000-dk9.12.1.2e.bin    
  
-If the lldp neigbor empty or showing mac address, that means the LLDP is enabled on the VIC card of APIC. As a result, the VIC consumes the LLDP and the APIC cannot respond. To disable LLDP on VIC:
+If the incoming LLDP is empty (shown below), that means the VIC port has consumed the LLDP and the APIC port does not receive it. 
+The reason is that the LLDP is enabled on VIC card. We need to disable the LLDP on the VIC card so that the LLDP information is passed to the APIC port (eth2-1).
 
-SSH as user admin to CIMC of the APIC:
+.. code-block:: console
+
+   apic1# acidiag run lldptool in eth2-1
+
+   apic1# 
+
+  leaf101# show lldp neighbors 
+  Capability codes:
+    (R) Router, (B) Bridge, (T) Telephone, (C) DOCSIS Cable Device
+    (W) WLAN Access Point, (P) Repeater, (S) Station, (O) Other
+  Device ID            Local Intf      Hold-time  Capability  Port ID  
+  d8b1.9061.3071        Eth1/45         120                    d8b1.9061.3075  <<< The device is shown as mac address instead of APIC hostname.
+  spine201              Eth1/53         120        BR          Eth1/29         
+  spine202              Eth1/54         120        BR          Eth1/29         
+  Total entries displayed: 3
+
+
+To disable LLDP on VIC, SSH as user admin to CIMC of the APIC:
 
 .. code-block:: console
 
@@ -258,4 +276,16 @@ SSH as user admin to CIMC of the APIC:
   CIMC /chassis/adapter # exit
   CIMC /chassis # power cycle
 
-Source: https://supportforums.cisco.com/legacyfs/online/attachments/document/files/apic-vic-lldp-fn.pdf
+Ensure that the VTEP is assigned to the leaf switch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When leaf is registered, it will request TEP address via DHCP.
+
+.. image:: dhcp-vtep.png
+   :width: 300px
+   :alt: APIC Cluster connectivity
+
+Reference
+---------
+#. Disable LLDP on VIC https://supportforums.cisco.com/legacyfs/online/attachments/document/files/apic-vic-lldp-fn.pdf
+#. CNA Data Center DCICT 200-155 Official Cert Guide by Ahmed Afrose et. al.
