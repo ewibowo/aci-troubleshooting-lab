@@ -22,7 +22,7 @@ Table of Contents
 
    fabric-discovery
    access-policy
-   lab2
+   epg
    contract
    l3out
 
