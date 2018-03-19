@@ -51,13 +51,12 @@ Enable the Serial Over LAN (SoL):
 
 Switch Config Erase
 ~~~~~~~~~~~~~~~~~~~
-To erase configuration of leaf/spine switch so that they can automatically retrieve configuration from APIC::
+To erase configuration of leaf/spine switch so that they can automatically retrieve configuration from APIC:
 
 .. code-block:: console
 
   switch# acidiag touch clean
   switch# reload
-
 
 Fabric Initial Setup
 --------------------
