@@ -312,7 +312,11 @@ When leaf is registered, it will request VTEP address for loopback0 interface vi
   lo0                  10.0.32.95/32        protocol-up/link-up/admin-up <<< VTEP
   lo1023               10.0.0.32/32         protocol-up/link-up/admin-up
 
-Once all switches are registered, we can see their VTEPs:
+Once all switches are registered, we can see their VTEPs (loopback lo0 interfaces):
+
+.. image:: vteps.png
+   :width: 600px
+   :alt: VTEPs 
 
 .. code-block:: console
 
