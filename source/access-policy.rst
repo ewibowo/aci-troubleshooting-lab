@@ -32,6 +32,14 @@ There are several types of interface policy groups:
 VPC
 ~~~
 
+First of all, we will need to create a VPC domain for a pair of leaf switches:
+
+.. image:: vpc-domain.png
+   :width: 600px
+   :alt: VPC domain 
+
+Note: See the below reference for a VPC config guide 
+
 To find out which Interface Policy Group is used for a VPC:
 
 .. code-block:: console
@@ -84,10 +92,11 @@ To check LACP messages:
 
 .. code-block:: console
 
-	leaf101# show lac interface ethernet 1/3 | grep -i pdu
-	  PDUs sent: 0 
+	leaf101# show lacp int e1/3 | grep -i pdu
+	  PDUs sent: 10 
 	  PDUs rcvd: 0 
 
+The leaf101 does not receive and LACP PDUs.
 
 Common Problems
 ---------------
@@ -100,4 +109,4 @@ Common Problems
 Reference
 ---------
 
-* How To Create VPC https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/1-x/Operating_ACI/guide/b_Cisco_Operating_ACI/b_Cisco_Operating_ACI_chapter_0110.html
+* VPC config guide https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/1-x/Operating_ACI/guide/b_Cisco_Operating_ACI/b_Cisco_Operating_ACI_chapter_0110.html
