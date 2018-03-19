@@ -24,6 +24,7 @@ Table of Contents
    access-policy
    epg
    contract
+   vmm
    l3out
 
 Indices and tables

@@ -27,12 +27,14 @@ When you create a VLAN pool, it is a good practice to set allocation mode to dyn
 
 Then when you add an encap block, you can choose either static or dynamic.
 In that way, you will have flexibility to add both dynamic and static encap blocks.
+Dynamic encap blocks are used for Virtual Machine Manager (VMM) domain.
 
 
 .. image:: create-vlan-pool-encap-blocks.png
    :width: 600px
    :alt: VLAN allocation mode
 
+Make sure VLAN pools do not have overlapping vlans. The reason is that ACI floods STP Bridge Protocol Data Units (BPDUs) to the VXLAN network identifier (VNID) assigned to the FD VLAN. VNID is assigned through the VLAN pool so encapsulation has to be part of same VLAN pool to be in part of same STP domain. Otherwise STP BPDU can be dropped by ACI.
 
 
 Static binding
@@ -88,5 +90,7 @@ In above example, encap vlan-100 has been mapped to ACI platform independent (PI
 Reference
 ---------
 #. CNA Data Center DCICT 200-155 Official Cert Guide by Ahmed Afrose et. al.
+#. ACI Operation with L2 Switches and Spanning Tree Link Types https://www.cisco.com/c/en/us/support/docs/cloud-systems-management/application-policy-infrastructure-controller-apic/211236-ACI-operation-with-L2-switches-and-Spann.html
+
 
  
