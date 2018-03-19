@@ -3,12 +3,6 @@
 Fabric Discovery
 ===================
 
-Physical Topology
---------------------
-.. image:: physical-topo.png
-   :width: 600px
-   :alt: Physical 
-
 APIC Cluster Connectivity
 ----------------------------
 

@@ -3,6 +3,15 @@ ACI Troubleshooting Lab
 
 Welcome to ACI Troubleshoot Lab documentation
 
+Physical Topology
+--------------------
+
+This lab documentation uses the following physical connectivity.
+
+.. image:: physical-topo.png
+   :width: 600px
+   :alt: Physical
+
 Table of Contents
 -----------------
 
