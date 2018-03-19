@@ -287,7 +287,8 @@ To disable LLDP on VIC, SSH as user admin to CIMC of the APIC:
 Ensure that the VTEP is assigned to the leaf switch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When leaf is registered, it will request TEP address via DHCP.
+When leaf is registered, it will request VTEP address for loopback0 interface via DHCP.
+
 .. image:: dhcp-vtep.png
    :width: 300px
    :alt: APIC Cluster connectivity
@@ -310,6 +311,58 @@ When leaf is registered, it will request TEP address via DHCP.
   vlan1                10.0.0.30/27         protocol-up/link-up/admin-up
   lo0                  10.0.32.95/32        protocol-up/link-up/admin-up <<< VTEP
   lo1023               10.0.0.32/32         protocol-up/link-up/admin-up
+
+Once all switches are registered, we can see their VTEPs:
+
+.. code-block:: console
+
+  leaf101# acidiag fnvread
+        ID   Pod ID                 Name    Serial Number         IP Address    Role        State   LastUpdMsgId
+  --------------------------------------------------------------------------------------------------------------
+       101        1              leaf101      FDO20231J7L      10.0.32.95/32    leaf         active   0
+       102        1              leaf102      SAL1946SWK8      10.0.32.93/32    leaf         active   0
+       103        1              leaf103      SAL1946SWNT      10.0.32.92/32    leaf         active   0
+       104        1              leaf104      SAL1946SWNU      10.0.32.91/32    leaf         active   0
+       201        1             spine201                       10.0.32.90/32   spine         active   0
+       202        1             spine202      SAL18391DXP      10.0.32.94/32   spine         active   0
+
+  Total 6 nodes
+
+Also we can see the Dynamic Tunnel End Points are created in IS-IS:
+
+.. code-block:: console
+
+  leaf101# show isis dteps vrf overlay-1
+
+  IS-IS Dynamic Tunnel End Point (DTEP) database:
+  DTEP-Address       Role    Encapsulation   Type                          
+  10.0.64.64         SPINE   N/A             PHYSICAL,PROXY-ACAST-V4       
+  10.0.64.65         SPINE   N/A             PHYSICAL,PROXY-ACAST-MAC      
+  10.0.64.66         SPINE   N/A             PHYSICAL,PROXY-ACAST-V6       
+  10.0.32.93         LEAF    N/A             PHYSICAL                      
+  10.0.32.92         LEAF    N/A             PHYSICAL                      
+  10.0.32.91         LEAF    N/A             PHYSICAL                      
+  10.0.32.90         SPINE   N/A             PHYSICAL                      
+  10.0.32.94         SPINE   N/A             PHYSICAL                      
+
+The gateway of the APIC to reach other VTEPs is 10.0.0.30.
+
+.. code-block:: console
+
+  apic1# netstat -rn
+  Kernel IP routing table
+  Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+  0.0.0.0         10.66.88.161    0.0.0.0         UG        0 0          0 oobmgmt
+  10.0.0.0        10.0.0.30       255.255.0.0     UG        0 0          0 bond0.4094
+  10.0.0.30       0.0.0.0         255.255.255.255 UH        0 0          0 bond0.4094
+  10.0.64.64      10.0.0.30       255.255.255.255 UGH       0 0          0 bond0.4094
+  10.0.64.65      10.0.0.30       255.255.255.255 UGH       0 0          0 bond0.4094
+  10.66.88.160    0.0.0.0         255.255.255.224 U         0 0          0 oobmgmt
+  169.254.1.0     0.0.0.0         255.255.255.0   U         0 0          0 teplo-1
+  169.254.254.0   0.0.0.0         255.255.255.0   U         0 0          0 lxcbr0
+  apic1# 
+
+
 
 Reference
 ---------
