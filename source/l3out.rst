@@ -98,3 +98,11 @@ To check the EPG class ID:
 
 	============== ======== ===== ====== ======
 	module-1# 
+
+To check existing BD subnets (pervasive gateways):
+
+.. code-block:: console
+
+   apic# moquery -c fvSubnet
+
+   
