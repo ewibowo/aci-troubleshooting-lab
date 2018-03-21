@@ -1,7 +1,10 @@
 L3out
 =====
 
-MP-BGP Route Reflector
------------------------
+There several points to verify during troubleshooting:
 
-BGP vpnv4 and vpnv6
+* Fabric Policy – BGP Route Reflector
+* BD and L3out association
+* BD subnet advertised externally
+* L3out - External EPG
+* Contract between Internal EPG and External EPG
