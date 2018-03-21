@@ -1,6 +1,13 @@
 Contract
 ========
 
+In order for different EPGs to be able to communicate, they must have a contract.
+Server provides the contract and Client consumes a contract.
+
+.. image:: contract.png
+   :width: 500px
+   :alt: Contract
+
 Contracts exist in VRF. To know the VRF ID, you can run the following command:
 
 .. code-block:: console
