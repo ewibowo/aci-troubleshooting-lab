@@ -34,7 +34,6 @@ Let us check the sclass ID that will be used in zone-rule (contract):
 .. code-block:: console
 
 	leaf103# vsh_lc
-	vsh_lc
 	module-1# show system internal eltmc info vlan 8
 
 
