@@ -63,6 +63,8 @@ We can see that the source class (sclass) is 49156 for EPG tshoot:tshoot-ap:A-ep
 
 To know the sclass of an external EPG of L3out:
 
+.. code-block:: console
+
 	leaf103# vsh_lc
 	module-1# show system internal aclqos prefix | grep 2949120
 	Vrf Vni Addr           Mask     Scope Class  Shared Remote
