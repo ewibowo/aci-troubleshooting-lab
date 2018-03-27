@@ -38,6 +38,4 @@ Indices and tables
 Attachments
 ===========
 
-Here is a link to a lab excerside attachment__.
-
-__ attachment:aci-tshoot-lab.docx
+Here is a link to a lab excerside :download:`aci-tshoot-lab.docx <aci-tshoot-lab.docx>`
