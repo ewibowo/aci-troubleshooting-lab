@@ -1,6 +1,13 @@
 Contract
 ========
 
+The requirement for contracts to be applied in the zoning-rule, the VRF must be inthe enforced mode.
+
+.. image:: vrf-enforced.png
+   :width: 700px
+   :alt: Contract
+
+
 In order for different EPGs to be able to communicate, they must have a contract.
 Server provides the contract and Client consumes a contract.
 

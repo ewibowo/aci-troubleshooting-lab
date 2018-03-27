@@ -48,11 +48,27 @@ To check whether the prefix has been learnt in BGP VPNV4:
 	*>r9.9.9.9/32         0.0.0.0                  5        100      32768  ?
 	* i                   10.0.32.91               5        100          0  ?
 
-To check the EPG class ID:
+
+First, we need to know the VRF VXLAN Network ID (VNI):
 
 .. code-block:: console
 
-	leaf103# 
+	leaf103# show system internal epm vrf all
+	+--------------------------------+--------+----------+----------+------+--------
+	               VRF                  Type    VRF vnid  Context ID Status Endpoint
+	                                                                          Count 
+	+--------------------------------+--------+----------+----------+------+--------
+	 tshoot:tshoot-vrf                Tenant   2949120    6          Up     6       
+
+To check the EPG source class (sclass) ID for external EPGs which are classified based on source IP addresses:
+
+.. image:: external-epg.png
+   :width: 700px
+   :alt: External EPG
+
+.. code-block:: console
+
+	leaf103# vsh_lc
 	module-1# show system internal aclqos prefix
 
 	Vrf Vni Addr           Mask     Scope Class  Shared Remote
@@ -62,37 +78,7 @@ To check the EPG class ID:
 	2719745 0.0.0.0        ffffffff 3     15     FALSE FALSE
 	2949120 0::/0 0::/0 4     15     FALSE FALSE
 	2949120 0.0.0.0        ffffffff 4     15     FALSE FALSE
-	2949120 9.9.9.9        0        4     16388  FALSE FALSE
-	2916352 0::/0 0::/0 5     15     FALSE FALSE
-	2916352 0.0.0.0        ffffffff 5     15     FALSE FALSE
-	2293760 0::/0 0::/0 6     15     FALSE FALSE
-	2818048 0::/0 0::/0 6     15     FALSE FALSE
-	2293760 0.0.0.0        ffffffff 6     15     FALSE FALSE
-	2818048 0.0.0.0        ffffffff 6     15     FALSE FALSE
-	2129920 0::/0 0::/0 7     15     FALSE FALSE
-	2129920 0.0.0.0        ffffffff 7     15     FALSE FALSE
-	2392064 0::/0 0::/0 8     15     FALSE FALSE
-	2392064 0.0.0.0        ffffffff 8     15     FALSE FALSE
-	3112960 0::/0 0::/0 9     15     FALSE FALSE
-	3112960 0.0.0.0        ffffffff 9     15     FALSE FALSE
-	3080192 0::/0 0::/0 10    15     FALSE FALSE
-	3080192 0.0.0.0        ffffffff 10    15     FALSE FALSE
-	2588672 0::/0 0::/0 11    15     FALSE FALSE
-	2916353 0::/0 0::/0 11    15     FALSE FALSE
-	2588672 0.0.0.0        ffffffff 11    15     FALSE FALSE
-	2916353 0.0.0.0        ffffffff 11    15     FALSE FALSE
-	2392065 0::/0 0::/0 12    15     FALSE FALSE
-	2392065 0.0.0.0        ffffffff 12    15     FALSE FALSE
-	2097152 0::/0 0::/0 14    15     FALSE FALSE
-	2097152 0.0.0.0        ffffffff 14    15     FALSE FALSE
-	2621442 0::/0 0::/0 15    15     FALSE FALSE
-	2621442 0.0.0.0        ffffffff 15    15     FALSE FALSE
-	2555904 0::/0 0::/0 16    15     FALSE FALSE
-	2555904 0.0.0.0        ffffffff 16    15     FALSE FALSE
-	3080193 0::/0 0::/0 18    15     FALSE FALSE
-	3080193 0.0.0.0        ffffffff 18    15     FALSE FALSE
-	2785280 0::/0 0::/0 21    15     FALSE FALSE
-	2785280 0.0.0.0        ffffffff 21    15     FALSE FALSE
+	2949120 9.9.9.9        0        4     16388  FALSE FALSE <<< External EPG
 
 	Shared Addr    Mask     Scope Class  RefCnt
 

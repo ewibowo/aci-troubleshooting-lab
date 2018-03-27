@@ -6,6 +6,7 @@ End Point Learning
    :alt: End Point and Routing Tables
 
 In ACI, the lookup is done in this order:
+
 #. L2 EP table 
 #. If it is a routed traffic, L3 EP table 
 #. If not found in the L3 EP table, routing table
