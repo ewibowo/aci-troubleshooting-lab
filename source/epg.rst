@@ -1,7 +1,7 @@
 End Point Group
 ===============
 
-So far the fabric nodes have all been discovered (VTEPs are assigned) and access policies have been created (port speed, cdp, lldp and other leaf port properties). Now, we are ready to assign the leaf ports to EPGs.
+So far all the fabric nodes have been discovered (VTEPs are assigned) and access policies have been created (port speed, cdp, lldp and other leaf port properties). Now, we are ready to assign the ownership of leaf ports to EPGs.
 
 EPG classification can be based on:
 

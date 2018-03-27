@@ -174,7 +174,7 @@ Check which active interface is connected to the leaf:
 Ensure the lldp information is correct
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Leaf switch discovers attached APIC via LLDP and requests TEP address via DHCP.
+Leaf switch discovers the attached APIC via LLDP and requests a TEP address via DHCP from the APIC.
 
 .. image:: apic-leaf-lldp.png
    :width: 500px

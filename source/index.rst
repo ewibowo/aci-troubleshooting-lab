@@ -1,5 +1,3 @@
-.. sectnum::
-
 ACI Troubleshooting Lab
 =======================
 
