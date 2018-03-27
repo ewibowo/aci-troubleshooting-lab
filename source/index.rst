@@ -34,3 +34,10 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Attachments
+===========
+
+Here is a link to a lab excerside attachment__.
+
+__ attachment:aci-tshoot-lab.docx
