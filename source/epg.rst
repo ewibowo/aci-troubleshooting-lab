@@ -1,6 +1,8 @@
 End Point Group
 ===============
 
+So far the fabric nodes have all been discovered (VTEPs are assigned) and access policies have been created (port speed, cdp, lldp and other leaf port properties). Now, we are ready to assign the leaf ports to EPGs.
+
 EPG classification can be based on:
 
 * Access (untagged)  = Access VLAN
@@ -87,37 +89,6 @@ That means any incoming traffic with vlan tag 100 is classified as EPG "tshoot-e
 
 In above example, encap vlan-100 has been mapped to ACI platform independent (PI) vlan 8 which is mapped to vxlan-8192.
 
-Let us check the sclass ID that will be used in zone-rule (contract):
-
-.. code-block:: console
-
-	leaf103# vsh_lc
-	vsh_lc
-	module-1# show system internal eltmc info vlan 8
-
-
-	             vlan_id:              8   :::      hw_vlan_id:              7
-	           vlan_type:        FD_VLAN   :::         bd_vlan:              7
-	   access_encap_type:         802.1q   :::    access_encap:            100
-	            isolated:              0   :::   primary_encap:              0
-	   fabric_encap_type:          VXLAN   :::    fabric_encap:           8192
-	              sclass:          16386   :::           scope:              4
-	             bd_vnid:           8192   :::        untagged:              0
-	     acess_encap_hex:           0x64   :::  fabric_enc_hex:         0x2000
-	     pd_vlan_ft_mask:           0x4f
-	    fd_learn_disable:              0
-	        bcm_class_id:             16   :::  bcm_qos_pap_id:           1024
-	          qq_met_ptr:              2   :::       seg_label:              0
-	      ns_qos_map_idx:              0   :::  ns_qos_map_pri:              1
-	     ns_qos_map_dscp:              0   :::   ns_qos_map_tc:              0
-	        vlan_ft_mask:         0x7830
-
-	      NorthStar Info:
-	           qq_tbl_id:           1441   :::         qq_ocam:              0
-	     seg_stat_tbl_id:              0   :::        seg_ocam:              0
-	::::
-
-We can see that the sclass is 8192 for EPG tshoot:tshoot-ap:tshoot-epg.
 
 Reference
 ---------
