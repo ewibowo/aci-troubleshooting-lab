@@ -7,7 +7,7 @@ APIC Cluster Connectivity
 ----------------------------
 
 .. image:: apic-cluster.png
-   :width: 600px
+   :width: 700px
    :alt: APIC Cluster connectivity
 
 Erase Configuration
@@ -313,7 +313,7 @@ When leaf is registered, it will request VTEP address for loopback0 interface vi
 Once all switches are registered, we can see their VTEPs (loopback lo0 interfaces):
 
 .. image:: vteps.png
-   :width: 600px
+   :width: 700px
    :alt: VTEPs 
 
 .. code-block:: console
