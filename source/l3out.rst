@@ -9,6 +9,10 @@ There several points to verify during troubleshooting:
 * L3out - External EPG
 * Contract between Internal EPG and External EPG
 
+.. image:: l3out-route.png
+   :width: 700px
+   :alt: L3out Route Advertisements
+
 To check whether BGP route reflector has been configured, we can check the BGP VPNV4 neigborship in vrf overlay-1:
 
 .. code-block:: console
