@@ -13,7 +13,7 @@ There several points to verify during troubleshooting:
    :width: 700px
    :alt: L3out Route Advertisements
 
-To check whether BGP route reflector has been configured, we can check the BGP VPNV4 neigborship in vrf overlay-1:
+To check whether BGP route reflector has been configured, we can check the BGP VPNV4 neigborship in vrf overlay-1. 10.0.32.90 is the spine which is configured as a BGP route reflector.
 
 .. code-block:: console
 
@@ -28,7 +28,7 @@ To check whether BGP route reflector has been configured, we can check the BGP V
 	Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
 	10.0.32.90      4  6500     400     407       47    0    0 06:22:35 2         
 
-To check whether the prefix has been learnt in BGP VPNV4:
+To check whether the external routes from external EPGs has been learnt in BGP VPNV4:
 
 .. code-block:: console
 
@@ -88,6 +88,8 @@ To check the EPG source class (sclass) ID for external EPGs which are classified
 
 	============== ======== ===== ====== ======
 	module-1# 
+
+The sclass of external EPG 9.9.9.9/32 is 16388.
 
 To check existing BD subnets (pervasive gateways):
 
