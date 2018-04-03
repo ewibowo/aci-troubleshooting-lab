@@ -1,6 +1,16 @@
 L3out
 =====
 
+Lab Topology
+-------------
+
+.. image:: l3out-topo.png
+   :width: 700px
+   :alt: L3out Lab Topology
+
+Troubleshooting
+----------------
+
 There several points to verify during troubleshooting:
 
 * Fabric Policy – BGP Route Reflector
