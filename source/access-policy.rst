@@ -1,8 +1,16 @@
 Access Policies
 ===============
 
-Once the underlay infrastructure is established (VRF overlay-1 and IS-IS are deployed to leaf and spine switches), 
-now we are ready to configure the access policies for front panel ports of leaf switches.
+Lab Topology
+-------------
+
+.. image:: access-policy-topo.png
+   :width: 600px
+   :alt: Access Policy Topology
+
+
+Access Policies for leaf front panel ports
+-------------------------------------------
 
 Access policies define the connectivity from external devices to ACI leaf switches 
 such as interfaces, VLANs, CDP, LLDP, etc.
@@ -25,9 +33,6 @@ There are several types of interface policy groups:
 * Port Channels
 * Virtual Port Channels
 
-.. image:: access-policy-topo.png
-   :width: 600px
-   :alt: Access Policy Topology
 
 VPC
 ~~~
