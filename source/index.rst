@@ -25,6 +25,7 @@ Table of Contents
    ep-learning
    l3out
    vmm
+   rest-api
 
 Indices and tables
 ==================
