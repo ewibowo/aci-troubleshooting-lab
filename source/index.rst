@@ -26,6 +26,7 @@ Table of Contents
    l3out
    vmm
    rest-api
+   firmware-upgrade
 
 Indices and tables
 ==================
