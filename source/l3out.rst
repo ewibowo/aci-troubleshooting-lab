@@ -1,6 +1,10 @@
 L3out
 =====
 
+.. image:: BGP-vpnv4.png
+   :width: 700px
+   :alt: BGP VPNv4
+
 Lab Topology
 -------------
 
