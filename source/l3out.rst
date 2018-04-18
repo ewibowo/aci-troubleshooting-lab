@@ -15,8 +15,6 @@ Lab Topology
 Troubleshooting
 ----------------
 
-This is a test.
-
 There several points to verify during troubleshooting:
 
 * Fabric Policy – BGP Route Reflector
