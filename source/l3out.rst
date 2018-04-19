@@ -70,6 +70,11 @@ Applying a contract to the internal EPG and the external EPG will create zoning-
 	192.168.200.0/24, ubest/mbest: 1/0, attached, direct, pervasive
 	    *via 10.0.64.64%overlay-1, [1/0], 00:38:14, static
 
+	leaf103# show isis dteps vrf overlay-1
+	IS-IS Dynamic Tunnel End Point (DTEP) database:
+	DTEP-Address       Role    Encapsulation   Type                          
+	10.0.64.64         SPINE   N/A             PHYSICAL,PROXY-ACAST-V4       
+
 To check the EPG source class (sclass) ID for external EPGs which are classified based on source IP addresses:
 
 .. image:: external-epg.png
@@ -175,15 +180,8 @@ To check whether the external routes from external EPGs has been learnt in BGP V
 	Origin codes: i - IGP, e - EGP, ? - incomplete, | - multipath
 
 	   Network            Next Hop            Metric     LocPrf     Weight Path
-	Route Distinguisher: 10.0.32.91:2
-	*>i192.168.198.0/24   10.0.32.91               0        100          0  ?
-	*>i9.9.9.9/32         10.0.32.91               5        100          0  ?
-
+	
 	Route Distinguisher: 10.0.32.92:2     (VRF tshoot:tshoot-vrf)
-	*>r192.168.197.0/24   0.0.0.0                  0        100      32768  ?
-	*>r192.168.198.0/24   0.0.0.0                  0        100      32768  ?
-	* i                   10.0.32.91               0        100          0  ?
-	*>r192.168.200.0/24   0.0.0.0                  0        100      32768  ?
 	*>r9.9.9.9/32         0.0.0.0                  5        100      32768  ?
 	* i                   10.0.32.91               5        100          0  ?
 
