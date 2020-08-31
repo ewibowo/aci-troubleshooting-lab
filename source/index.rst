@@ -39,3 +39,9 @@ Attachments
 ===========
 
 Here is a link to a lab excerside :download:`aci-tshoot-lab.docx <aci-tshoot-lab.docx>`
+
+Author
+=======
+Edi Wibowo
+Email: ewibowo@live.com 
+LinkedIn: https://www.linkedin.com/in/ediwibowo 
